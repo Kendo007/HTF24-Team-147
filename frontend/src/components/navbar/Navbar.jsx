@@ -1,7 +1,5 @@
 import React from "react";
 import { TypographyH1 } from "../ui/typography";
-import { Input } from "../ui/input";
-import { BellIcon, MenuIcon, PlusIcon, SearchIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {

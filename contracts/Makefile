@@ -1,15 +1,4 @@
-# Include the generated file with environment variables
-SENDER := 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-SEPOLIA_SENDER := 0x1db6b09cfb22d87477a536ada65fb54f8bdd7ada
-ZKSYNC_SEPOLIA_SENDER := 0xbc989fde9e54cad2ab4392af6df60f04873a033a
-
-RPC_URL := http://127.0.0.1:8545
-ZKSYNC_SEPOLIA_RPC_URL := http://127.0.0.1:8011
-SEPOLIA_RPC_URL := https://eth-sepolia.g.alchemy.com/v2/4sqIIJJwedQDTVwEMG8K9nNmnQfUiV5o
-
-PASSWORD := test1234
-
-.PHONY: all test clean deploy fund help install snapshot format anvil 
+.PHONY: all test clean deploy fund help install snapshot format anvil
 
 help:
 	@echo "Usage:"
@@ -32,7 +21,7 @@ update:; forge update
 
 build:; forge build
 
-test :; forge test 
+test :; forge test
 
 snapshot :; forge snapshot
 

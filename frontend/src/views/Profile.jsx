@@ -1,36 +1,10 @@
 import Navbar from "@/components/navbar/Navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
 import { TypographyH1 } from "@/components/ui/typography";
 import BgPattern from "@/utils/BgPattern";
-import {
-  BriefcaseIcon,
-  Building2Icon,
-  CalendarIcon,
-  ClockIcon,
-  User2Icon,
-  XIcon,
-} from "lucide-react";
+import { CalendarIcon, User2Icon } from "lucide-react";
 import React from "react";
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 
 export default function Profile() {
   // Sample data - replace with real data from your backend
