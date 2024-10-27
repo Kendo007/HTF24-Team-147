@@ -51,8 +51,8 @@ export default function Login() {
         e.preventDefault();
         setShowError(false);
 
-        const account = await connectMetaMask(); // Connect MetaMask on login
-        if (!account) return; // Exit if connection failed
+        const account = await connectMetaMask();
+        if (!account) return;
 
         const user = await fetch(
             'http://localhost:3000/api/users/login',
@@ -74,7 +74,7 @@ export default function Login() {
             console.log(data);
             e.target.email.value = '';
             e.target.password.value = '';
-            navigate('/jobs'); // Redirect to /jobs page
+            navigate('/jobs');
         } else {
             setShowError(true);
         }
