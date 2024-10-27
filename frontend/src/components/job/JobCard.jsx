@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import { TypographyH3, TypographyH4, TypographyP } from "../ui/typography";
 
 export default function JobCard({
-  id = "",
+  id = "12",
   title = "Frontend Engineer",
   company = "Acme Corporation",
   location = "Remote",

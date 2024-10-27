@@ -8,6 +8,7 @@ import Login from "./views/Login";
 import PageNotFound from "./views/PageNotFound";
 import Jobs from "./views/Jobs";
 import Job from "./views/Job";
+import Dashboard from "./views/DashBoard";
 
 export default function NFTMarketplace() {
   const [listedNFTs, setListedNFTs] = useState([]);
@@ -26,6 +27,7 @@ export default function NFTMarketplace() {
         <div className="container mx-auto">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/job/:jobId" element={<Job />} />

@@ -1,6 +1,7 @@
 import JobCard from "@/components/job/JobCard";
 import Navbar from "@/components/navbar/Navbar";
 import { TypographyH1 } from "@/components/ui/typography";
+import BgPattern from "@/utils/BgPattern";
 import ListRender from "@/utils/ListRender";
 import React from "react";
 
@@ -66,10 +67,14 @@ export default function Jobs() {
   return (
     <>
       <Navbar />
-      <div className="mb-8 text-center">
-        <TypographyH1>Jobs</TypographyH1>
+      <BgPattern />
+
+      <div className="relative">
+        <div className="mb-8 text-center">
+          <TypographyH1>Jobs</TypographyH1>
+        </div>
+        <ListRender data={jobs} ItemRender={JobCard} />
       </div>
-      <ListRender data={jobs} ItemRender={JobCard} />
     </>
   );
 }

@@ -7,6 +7,7 @@ import {
   TypographyH4,
   TypographyP,
 } from "@/components/ui/typography";
+import BgPattern from "@/utils/BgPattern";
 import React from "react";
 import { useParams } from "react-router-dom";
 
@@ -29,33 +30,39 @@ export default function Job() {
   return (
     <>
       <Navbar />
-      <div className="my-6">
+      <BgPattern />
+
+      <div className="mb-10 relative">
         <div className="my-4">
           <TypographyH1>{job.title}</TypographyH1>
           <TypographyH4>{job.company}</TypographyH4>
           <TypographyH4>{job.location}</TypographyH4>
         </div>
         <TypographyH4 className="my-6">{job.description}</TypographyH4>
-        <div className="my-4">
-          <TypographyH2>Requirements</TypographyH2>
-          <ul>
-            {job.requirements.map((requirement) => (
-              <li key={requirement} className="text-lg">
-                {requirement}
-              </li>
+        <Card className="bg-slate-900/80 my-4">
+          <CardHeader>
+            <TypographyH2>Requirements</TypographyH2>
+          </CardHeader>
+          <CardContent>
+            {job.requirements.map((ele) => (
+              <p key={ele} className="text-lg hover:text-foreground/80">
+                {ele}
+              </p>
             ))}
-          </ul>
-        </div>
-        <div className="my-4">
-          <TypographyH2>Benefits</TypographyH2>
-          <ul>
-            {job.benefits.map((benefit) => (
-              <li key={benefit} className="text-lg">
-                {benefit}
-              </li>
+          </CardContent>
+        </Card>
+        <Card className="bg-slate-900/80 my-4">
+          <CardHeader>
+            <TypographyH2>Benefits</TypographyH2>
+          </CardHeader>
+          <CardContent>
+            {job.benefits.map((ele) => (
+              <p key={ele} className="text-lg hover:text-foreground/80">
+                {ele}
+              </p>
             ))}
-          </ul>
-        </div>
+          </CardContent>
+        </Card>
         <div className="flex justify-around items-center my-4">
           <Button className="text-xl" size="lg" asChild>
             <a href="">Apply</a>
