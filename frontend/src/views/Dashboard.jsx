@@ -144,6 +144,7 @@ export default function Dashboard() {
                                 {job.title}
                               </h3>
                               <Badge
+                                variant="secondary"
                                 className={`${getStatusColor(job.status)}`}
                               >
                                 {job.status}
@@ -231,7 +232,10 @@ export default function Dashboard() {
                               <h3 className="font-semibold text-white">
                                 {job.title}
                               </h3>
-                              <Badge className="bg-blue-500">
+                              <Badge
+                                variant="secondary"
+                                className="bg-blue-500"
+                              >
                                 {job.applications} Applications
                               </Badge>
                             </div>

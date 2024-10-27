@@ -11,7 +11,7 @@ export default function JobCard({
 }) {
   return (
     <a href={`/job/${id}`}>
-      <Card className="max-w-96 hover:scale-105 transition hover:border-primary/50">
+      <Card className="max-w-96 bg-slate-900/60 backdrop-blur-sm hover:scale-105 transition hover:border-primary/50">
         <CardHeader>
           <TypographyH3>{title}</TypographyH3>
           <TypographyH4 className="text-muted-foreground">

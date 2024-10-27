@@ -17,13 +17,20 @@ export default function Navbar() {
   const links = [
     { label: "dashboard", url: "/dashboard" },
     { label: "jobs", url: "/jobs" },
-    { label: "chat", url: "/chat" },
-    { label: "inbox", url: "/inbox" },
+    { label: "chat", url: "/" },
+    { label: "inbox", url: "/" },
   ];
+  const avatarLinks = [
+    { label: "profile", url: "/profile" },
+    { label: "sign out", url: "/" },
+  ];
+
   return (
     <>
       <nav className="fixed z-20 bg-background left-0 top-0 w-full px-8 flex h-20 gap-4 items-center border-b">
-        <TypographyH1>JobVilla</TypographyH1>
+        <a href="/">
+          <TypographyH1>JobVilla</TypographyH1>
+        </a>
         <div className="grow flex p-2 gap-2 items-center justify-center">
           {links.map((ele, id) => (
             <Button
@@ -46,12 +53,15 @@ export default function Navbar() {
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild className="cursor-pointer">
-              <a href="/">Profile</a>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild className="cursor-pointer">
-              <a href="/">Sign Out</a>
-            </DropdownMenuItem>
+            {avatarLinks.map((ele, id) => (
+              <DropdownMenuItem
+                key={id}
+                asChild
+                className="cursor-pointer capitalize"
+              >
+                <a href={ele.url}>{ele.label}</a>
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuContent>
         </DropdownMenu>
         <Button variant="ghost" className="capitalize text-lg" asChild>
