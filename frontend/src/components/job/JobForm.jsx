@@ -18,13 +18,9 @@ import {
     SelectContent,
     SelectItem,
 } from '@/components/ui/select';
+import axios from 'axios';
 
 const JobForm = () => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [company, setCompany] = useState('');
-    const [salary, setSalary] = useState('');
-    const [jobType, setJobType] = useState('full-time');
     const [showError, setShowError] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -33,39 +29,58 @@ const JobForm = () => {
         setShowError(false);
         setSuccessMessage('');
 
+        const {
+            title,
+            content,
+            salary,
+            jobType,
+            lastApplicationDate,
+            completionDate,
+        } = e.target.elements;
+
         // Basic validation
-        if (!title || !description || !company || !salary) {
+        if (
+            !title.value ||
+            !content.value ||
+            !salary.value ||
+            !lastApplicationDate.value ||
+            !completionDate.value
+        ) {
             setShowError(true);
             return;
         }
 
-        const response = await fetch(
-            'http://localhost:3000/api/posts',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    title,
-                    description,
-                    company,
-                    salary,
-                    jobType,
-                }),
-            }
-        );
+        const formData = {
+            project: '671e087ada2cfdfd4c423978',
+            title: title.value,
+            content: content.value,
+            salary: salary.value,
+            jobType: jobType.value,
+            lastApplicationDate: lastApplicationDate.value,
+            completionDate: completionDate.value,
+        };
 
-        if (response.ok) {
-            setSuccessMessage('Job listing created successfully!');
-            setTitle('');
-            setDescription('');
-            setCompany('');
-            setSalary('');
-            setJobType('full-time');
-        } else {
-            console.log('Error creating job listing');
+        console.log('formData:', formData);
+
+
+        try {
+            const response = await axios.post(
+                'http://localhost:3000/api/posts',
+                formData, // Send the constructed formData object
+                { withCredentials: true } // This allows cookies to be sent with the request
+            );
+
+            if (response.status === 201) {
+                setSuccessMessage(
+                    'Job listing created successfully!'
+                );
+                e.target.reset();
+            } else {
+                console.log('Error creating job listing: ', response);
+                setShowError(true);
+            }
+        } catch (error) {
+            console.error('Error creating job listing:', error);
             setShowError(true);
         }
     };
@@ -78,47 +93,24 @@ const JobForm = () => {
                         Create Job Listing
                     </CardTitle>
                 </CardHeader>
-                <CardContent>
-                    <form
-                        onSubmit={handleSubmit}
-                        className="space-y-4"
-                    >
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <CardContent>
                         <div className="space-y-2">
                             <Label htmlFor="title">Job Title</Label>
                             <Input
                                 id="title"
+                                name="title"
                                 type="text"
-                                value={title}
-                                onChange={(e) =>
-                                    setTitle(e.target.value)
-                                }
                                 required
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="description">
+                            <Label htmlFor="content">
                                 Job Description
                             </Label>
                             <Textarea
-                                id="description"
-                                value={description}
-                                onChange={(e) =>
-                                    setDescription(e.target.value)
-                                }
-                                required
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="company">
-                                Company Name
-                            </Label>
-                            <Input
-                                id="company"
-                                type="text"
-                                value={company}
-                                onChange={(e) =>
-                                    setCompany(e.target.value)
-                                }
+                                id="content"
+                                name="content"
                                 required
                             />
                         </div>
@@ -126,18 +118,37 @@ const JobForm = () => {
                             <Label htmlFor="salary">Salary</Label>
                             <Input
                                 id="salary"
+                                name="salary"
                                 type="number"
-                                value={salary}
-                                onChange={(e) =>
-                                    setSalary(e.target.value)
-                                }
+                                required
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="lastApplicationDate">
+                                Last Application Date
+                            </Label>
+                            <Input
+                                id="lastApplicationDate"
+                                name="lastApplicationDate"
+                                type="date"
+                                required
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="completionDate">
+                                Completition Date
+                            </Label>
+                            <Input
+                                id="completionDate"
+                                name="completionDate"
+                                type="date"
                                 required
                             />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="jobType">Job Type</Label>
                             <Select
-                                onValueChange={setJobType}
+                                name="jobType"
                                 defaultValue="full-time"
                             >
                                 <SelectTrigger>
@@ -163,7 +174,7 @@ const JobForm = () => {
                                 className="mt-4"
                             >
                                 <AlertDescription>
-                                    {'Please fill in all fields'}
+                                    Please fill in all fields
                                 </AlertDescription>
                             </Alert>
                         )}
@@ -175,13 +186,13 @@ const JobForm = () => {
                                 </AlertDescription>
                             </Alert>
                         )}
-                    </form>
-                </CardContent>
-                <CardFooter>
-                    <Button className="w-full" onClick={handleSubmit}>
-                        Create Job
-                    </Button>
-                </CardFooter>
+                    </CardContent>
+                    <CardFooter>
+                        <Button className="w-full" type="submit">
+                            Create Job
+                        </Button>
+                    </CardFooter>
+                </form>
             </Card>
         </div>
     );

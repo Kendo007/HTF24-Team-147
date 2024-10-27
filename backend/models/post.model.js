@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema(
     {
+        projManager: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
         project: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Project',
@@ -22,7 +27,6 @@ const postSchema = new mongoose.Schema(
         },
         image: {
             type: String,
-            required: true,
         },
         tags: {
             type: [String],

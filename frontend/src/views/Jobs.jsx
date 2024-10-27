@@ -4,8 +4,8 @@ import Navbar from '@/components/navbar/Navbar';
 import { TypographyH1, TypographyH4 } from '@/components/ui/typography';
 import BgPattern from '@/utils/BgPattern';
 import ListRender from '@/utils/ListRender';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export default function Jobs() {
     // const jobs = [
@@ -68,13 +68,16 @@ export default function Jobs() {
     // ];
     const [jobs, setJobs] = useState([]);
     const [jobForm, setJobForm] = useState(false);
-    const navigate = useNavigate();
     useEffect(() => {
-        fetch('/api/posts/')
-            .then((res) => res.json())
-            .then((data) => {
-                setJobs(data);
-            });
+        const fetchJobs = async () => {
+            try {
+                const res = await axios.get('http://localhost:3000/api/posts');
+                setJobs(res.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchJobs();
     }, []);
     return (
         <>

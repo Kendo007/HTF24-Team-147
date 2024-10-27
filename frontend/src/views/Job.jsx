@@ -7,24 +7,25 @@ import {
   TypographyH4,
 } from "@/components/ui/typography";
 import BgPattern from "@/utils/BgPattern";
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Job() {
-  const params = useParams(); // has the JobId
-  const job = {
-    title: "Frontend Engineer",
-    company: "Acme Corporation",
-    location: "Remote",
-    description:
-      "We are looking for a talented Frontend Engineer to join our team. You will be responsible for developing and maintaining our web applications.",
-    requirements: [
-      "Strong proficiency in JavaScript, HTML, and CSS",
-      "Experience with React or Angular",
-      "Familiarity with REST APIs",
-    ],
-    benefits: ["Competitive salary", "Flexible work hours", "Health insurance"],
-  };
+    const params = useParams(); // has the JobId
+    const [job, setJob] = React.useState({});
+
+    useEffect(() => {
+        const fetchJob = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/api/posts/${params.jobId}`);
+                setJob(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchJob();
+    }, [params.jobId]);
 
   return (
     <>

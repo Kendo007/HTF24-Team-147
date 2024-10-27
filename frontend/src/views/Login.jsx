@@ -20,30 +20,30 @@ import {
 import BgPattern from '@/utils/BgPattern';
 import { AlertCircleIcon, BriefcaseIcon } from 'lucide-react';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import Axios
 
 export default function Login() {
     const [showError, setShowError] = useState(false);
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
 
     const connectMetaMask = async () => {
         if (window.ethereum) {
             try {
-                // Request account access if needed
                 const accounts = await window.ethereum.request({
                     method: 'eth_requestAccounts',
                 });
-                return accounts[0]; // Return the first account connected
+                return accounts[0];
             } catch (error) {
                 console.error(
                     'User denied account access or error occurred:',
                     error
                 );
-                return null; // Return null on error
+                return null;
             }
         } else {
-            setShowError(true); // Set error state if MetaMask is not installed
-            return null; // MetaMask not installed
+            setShowError(true);
+            return null;
         }
     };
 
@@ -54,28 +54,22 @@ export default function Login() {
         const account = await connectMetaMask();
         if (!account) return;
 
-        const user = await fetch(
-            'http://localhost:3000/api/users/login',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-                body: JSON.stringify({
+        try {
+            const response = await axios.post(
+                'http://localhost:3000/api/users/login',
+                {
                     email: e.target.email.value,
                     password: e.target.password.value,
-                }),
-            }
-        );
+                },
+                { withCredentials: true } // Allow cookies to be sent
+            );
 
-        if (user && account) {
-            const data = await user.json();
-            console.log(data);
+            console.log(response.data);
             e.target.email.value = '';
             e.target.password.value = '';
             navigate('/jobs');
-        } else {
+        } catch (error) {
+            console.error('Login error:', error);
             setShowError(true);
         }
     };
@@ -95,28 +89,23 @@ export default function Login() {
         const account = await connectMetaMask();
         if (!account) return;
 
-        const user = await fetch(
-            'http://localhost:3000/api/users/register',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+        try {
+            const response = await axios.post(
+                'http://localhost:3000/api/users/register',
+                {
                     name: e.target.name.value,
                     email: e.target.email.value,
                     password: e.target.password.value,
-                }),
-            }
-        );
+                },
+                { withCredentials: true } // Allow cookies to be sent
+            );
 
-        if (user && account) {
-            const data = await user.json();
-            console.log(data);
+            console.log(response.data);
             e.target.email.value = '';
             e.target.password.value = '';
             navigate('/jobs');
-        } else {
+        } catch (error) {
+            console.error('Registration error:', error);
             setShowError(true);
         }
     };

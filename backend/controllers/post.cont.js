@@ -2,10 +2,10 @@ import Post from "../models/post.model.js";
 
 export const findAllPosts = async (req, res) => {
 	try {
-		const posts = await Post.find({ user: req.user._id });
-		res.json(posts);
+		const posts = await Post.find();
+		return res.status(200).json(posts);
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		return res.status(500).json({ message: error.message });
 	}
 };
 
@@ -24,11 +24,19 @@ export const findOnePost = async (req, res) => {
 
 export const createPost = async (req, res) => {
 	try {
-		const post = new Post({
-			title: req.body.title,
-			content: req.body.content,
-			user: req.user._id,
-		});
+        const post = await Post.create({
+            project: req.body.project,
+            title: req.body.title,
+            content: req.body.content,
+            initialAmount: req.body.salary,
+            currentAmount: req.body.salary,
+            lastApplicationDate: req.body.lastApplicationDate,
+            completionDate: req.body.completionDate,
+            projManager: req.user._id,
+        });
+        if (!post) {
+            return res.status(400).json({ message: 'Post creation failed' });
+        }
 
 		await post.save();
 		res.status(201).json(post);

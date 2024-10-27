@@ -12,7 +12,7 @@ import Job from './views/Job';
 import Dashboard from './views/DashBoard';
 import Profile from './views/Profile';
 
-export default function NFTMarketplace() {
+export default function FreelanceMarketplace() {
     return (
         <Router>
             <div className="min-h-screen">
