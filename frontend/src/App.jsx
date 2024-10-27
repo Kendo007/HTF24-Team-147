@@ -29,7 +29,7 @@ export default function FreelanceMarketplace() {
                         />
                         <Route path="/login" element={<Login />} />
                         <Route path="/jobs" element={<Jobs />} />
-                        <Route path="/job/:jobId" element={<Job />} />
+                        <Route path="/jobs/:jobId" element={<Job />} />
                         <Route path="/*" element={<PageNotFound />} />
                     </Routes>
                 </div>

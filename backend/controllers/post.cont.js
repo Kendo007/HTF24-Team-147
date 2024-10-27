@@ -11,7 +11,7 @@ export const findAllPosts = async (req, res) => {
 
 export const findOnePost = async (req, res) => {
 	try {
-		const post = await Post.findOne({ _id: req.params.id, user: req.user._id });
+		const post = await Post.findOne({ _id: req.params.id });
 		if (!post) {
 			return res.status(404).json({ message: "Post not found" });
 		}
