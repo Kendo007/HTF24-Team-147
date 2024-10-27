@@ -5,7 +5,6 @@ import {
   TypographyH1,
   TypographyH2,
   TypographyH4,
-  TypographyP,
 } from "@/components/ui/typography";
 import BgPattern from "@/utils/BgPattern";
 import React from "react";
