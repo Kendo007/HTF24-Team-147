@@ -5,6 +5,9 @@ import AllProducts from "./components/AllProduct";
 import { useNFTMarketplace } from "./hooks/useNFTMarketplace";
 import Home from "./views/Home";
 import Login from "./views/Login";
+import PageNotFound from "./views/PageNotFound";
+import Jobs from "./views/Jobs";
+import Job from "./views/Job";
 
 export default function NFTMarketplace() {
   const [listedNFTs, setListedNFTs] = useState([]);
@@ -24,11 +27,14 @@ export default function NFTMarketplace() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/jobs" element={<Jobs />} />
+            <Route path="/job/:jobId" element={<Job />} />
             <Route
               path="/products"
               element={<AllProducts nfts={listedNFTs} />}
             />
             <Route path="/product/1" element={<NFTProductPage />} />
+            <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </div>
       </div>
